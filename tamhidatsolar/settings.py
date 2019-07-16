@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'solar'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,11 @@ ROOT_URLCONF = 'tamhidatsolar.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR,
+            os.path.join(BASE_DIR, 'templates'),  # If i leave both or just comment one one out I still get the same error
+            'tmws.tmws.templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block scripts %}
+{% endblock scripts %}
+
+{% block content %}
+
+    <div class="ui container">
+        <div class="ui segment">
+            <table class="ui single line striped selectable unstackable table center aligned">
+                <tr>
+                    <th>
+                        تعداد سطوح
+                    </th>
+                    <th>
+                        تعداد افراد دعوت شده
+                    </th>
+                    <th>
+                        درصد یک سطح بالاتر
+                    </th>
+                    <th>
+                        درصد بقیه سطح ها
+                    </th>
+                    <th>
+                        سهم افراد هر سطح
+                    </th>
+                    <th>
+                        مجموع درآمد افراد
+                    </th>
+                    <th>
+                        درآمد آویژه
+                    </th>
+                    <th>
+                        مجموع کل درآمد ها
+                    </th>
+                </tr>
+
+                {% for level_type in level_types %}
+                    <tr>
+                        <td>
+                            {{ level_type.levels }}
+                        </td>
+                        <td>
+                            {{ level_type.people_in_a_level }}
+                        </td>
+                        <td>
+                            {{ level_type.first_level_share }}
+                        </td>
+                        <td>
+                            {{ level_type.other_levels_share }}
+                        </td>
+                        <td>
+                            {% for share_amount in level_type.shares %}
+                                {{ share_amount }} <br />
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{ level_type.shares_total }}
+                        </td>
+                        <td>
+                            {{ level_type.avizhe_share }}
+                        </td>
+                        <td>
+                            {{ level_type.total }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+{% endblock content %}
