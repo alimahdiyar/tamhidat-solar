@@ -52,74 +52,14 @@ class solar_level_view(View):
         return render(request, self.template_name, context)
 
     def post(self, request, slug=None, *args, **kwargs):
-        pass
-        # the_form = get_object_or_404(QualificationForm, slug=slug)
-        # if request.user.is_authenticated:
-        #     context = {}
-        #
-        #     the_student = request.user.profile.first()
-        #     the_campaign = get_object_or_404(Campaign, id=int(request.POST['course_id']))
-        #     the_grader = get_object_or_404(Profile, id=int(request.POST['grader_id']))
-        #     the_grader_cpr = CampaignPartyRelation.objects.get(
-        #         type=CampaignPartyRelationType.GRADER,
-        #         content_type=ContentType.objects.get_for_model(the_grader),
-        #         object_id=the_grader.id,
-        #         campaign=the_campaign
-        #     )
-        #     the_student_cpr = CampaignPartyRelation.objects.get(
-        #         type=CampaignPartyRelationType.STUDENT,
-        #         content_type=ContentType.objects.get_for_model(the_student),
-        #         object_id=the_student.id,
-        #         campaign=the_campaign
-        #     )
-        #     try:
-        #         the_qualification = Qualification.objects.get(
-        #             src=the_student_cpr,
-        #             dst=the_grader_cpr
-        #         )
-        #         edit = True
-        #     except:
-        #         the_qualification = Qualification.objects.create(
-        #             src=the_student_cpr,
-        #             dst=the_grader_cpr
-        #         )
-        #         edit = False
-        #     for qr in the_form.questions.all():
-        #         if 'ans_' + str(qr.id) in request.POST and qr.question.is_valid_ans(request.POST['ans_' + str(qr.id)]):
-        #
-        #             the_qa_qs = QA.objects.filter(
-        #                     qualification=the_qualification,
-        #                     question=qr
-        #                 )
-        #
-        #             if the_qa_qs.exists():
-        #                 the_qa = the_qa_qs.first()
-        #                 if request.POST['ans_' + str(qr.id)] != '-1':
-        #                     the_qa.answer = request.POST['ans_' + str(qr.id)]
-        #                     the_qa.save()
-        #                 else:
-        #                     the_qa.delete()
-        #
-        #             else:
-        #                 if request.POST['ans_' + str(qr.id)] != '-1':
-        #                     QA.objects.create(
-        #                         qualification=the_qualification,
-        #                         question=qr,
-        #                         answer=request.POST['ans_' + str(qr.id)],
-        #                     )
-        #         else:
-        #             context['status'] = 'error'
-        #             if not edit:
-        #                 the_qualification.delete()
-        #                 break
-        #
-        #     if 'status' not in context:
-        #         if edit:
-        #             context['status'] = 'modified'
-        #         else:
-        #             context['status'] = 'new'
-        #
-        #     context.update(self.the_context(request, the_form))
-        #     return render(request, self.template_name, context)
-        # else:
-        #     return redirect(reverse('users:login') + "?next=" + request.path_info)
+        try:
+            SolarLevelType.objects.create(
+                    first_level_share = int(request.POST['first_level_share']),
+                    other_levels_share = int(request.POST['other_levels_share']),
+                    people_in_a_level = int(request.POST['people_in_a_level']),
+                    levels = int(request.POST['levels']),
+            )
+        except:
+            pass
+        context = self.the_context(request)
+        return render(request, self.template_name, context)

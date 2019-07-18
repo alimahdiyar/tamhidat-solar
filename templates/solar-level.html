@@ -8,7 +8,31 @@
 
 {% block content %}
 
-    <div class="ui container">
+    <div class="ui container" style="padding-top: 20px;">
+        <div class="ui segment">
+            <form class="ui form" method="post" style="direction: rtl">
+                {% csrf_token %}
+                <div class="inline fields">
+                    <div class="field">
+                        <label for="levels">تعداد سطوح</label>
+                        <input id="levels" required name="levels" type="number" />
+                    </div>
+                    <div class="field">
+                        <label for="people_in_a_level">تعداد افراد دعوت شده</label>
+                        <input id="people_in_a_level" required name="people_in_a_level" type="number" />
+                    </div>
+                    <div class="field">
+                        <label for="first_level_share">درصد یک سطح بالاتر</label>
+                        <input id="first_level_share" required name="first_level_share" type="number" />
+                    </div>
+                    <div class="field">
+                        <label for="other_levels_share">درصد بقیه سطح ها</label>
+                        <input id="other_levels_share" required name="other_levels_share" type="number" />
+                    </div>
+                </div>
+                <input class="ui primary button" style="margin-right: 30px; width: 150px;" type="submit" value="افزودن" />
+            </form>
+        </div>
         <div class="ui segment">
             <table class="ui single line striped selectable unstackable table center aligned">
                 <tr>
