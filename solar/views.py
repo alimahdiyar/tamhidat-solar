@@ -1,4 +1,6 @@
-from django.shortcuts import render
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.views import View
 
 from solar.models import SolarLevelType
@@ -7,6 +9,12 @@ def slice_price (price):
     price_str = str(price)[::-1]
     price_sliced_lst = [price_str[i: i + 3] for i in range(0, len(price_str), 3)]
     return ','.join(price_sliced_lst)[::-1]
+
+class solar_level_delete(View):
+    def get(self, request, pk=None, *args, **kwargs):
+        leve_type = get_object_or_404(SolarLevelType,pk=pk)
+        leve_type.delete()
+        return redirect(reverse('solar:levels'))
 
 class solar_level_view(View):
     template_name = 'solar-level.html'
@@ -35,6 +43,7 @@ class solar_level_view(View):
 
             total = total * tamhidat_card_price
             context['level_types'].append({
+                'pk': level_type.pk,
                 'first_level_share': level_type.first_level_share,
                 'tamhidat_card_price': level_type.tamhidat_card_price,
                 'other_levels_share': level_type.other_levels_share,

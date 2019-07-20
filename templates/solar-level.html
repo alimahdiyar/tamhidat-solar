@@ -70,6 +70,9 @@
                     <th>
                         مجموع کل درآمد ها
                     </th>
+                    <th>
+                        عملیات
+                    </th>
                 </tr>
 
                 {% for level_type in level_types %}
@@ -102,6 +105,9 @@
                         </td>
                         <td>
                             {{ level_type.total }}
+                        </td>
+                        <td>
+                            <a href="{% url 'solar:delete' pk=level_type.pk %}">حذف</a>
                         </td>
                     </tr>
                 {% endfor %}
