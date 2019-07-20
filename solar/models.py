@@ -7,3 +7,4 @@ class SolarLevelType(models.Model):
     other_levels_share = models.IntegerField()
     people_in_a_level = models.IntegerField()
     levels = models.IntegerField()
+    tamhidat_card_price = models.IntegerField(default=100000)

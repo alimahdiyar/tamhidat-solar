@@ -14,6 +14,10 @@
                 {% csrf_token %}
                 <div class="inline fields">
                     <div class="field">
+                        <label for="tamhidat_card_price">قیمت تمهیدات کارت</label>
+                        <input id="tamhidat_card_price" required name="tamhidat_card_price" value="100000" type="number" />
+                    </div>
+                    <div class="field">
                         <label for="levels">تعداد سطوح</label>
                         <input id="levels" required name="levels" type="number" />
                     </div>
@@ -34,8 +38,14 @@
             </form>
         </div>
         <div class="ui segment">
+            <p style="direction: rtl; padding: 10px;">
+            * شیوه نمایش سهم افراد هر سطح: مجموع درآمد افراد آن سطح - مجموع درآمد هر نفر در آن سطح - تعداد افراد
+            </p>
             <table class="ui single line striped selectable unstackable table center aligned">
                 <tr>
+                    <th>
+                        قیمت
+                    </th>
                     <th>
                         تعداد سطوح
                     </th>
@@ -49,7 +59,7 @@
                         درصد بقیه سطح ها
                     </th>
                     <th>
-                        سهم افراد هر سطح
+                        * سهم افراد هر سطح
                     </th>
                     <th>
                         مجموع درآمد افراد
@@ -64,6 +74,9 @@
 
                 {% for level_type in level_types %}
                     <tr>
+                        <td>
+                            {{ level_type.tamhidat_card_price }}
+                        </td>
                         <td>
                             {{ level_type.levels }}
                         </td>

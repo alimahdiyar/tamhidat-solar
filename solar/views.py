@@ -17,7 +17,7 @@ class solar_level_view(View):
             'level_types': []
         }
         tamhidat_card_price = 100000
-        for level_type in SolarLevelType.objects.all():
+        for level_type in SolarLevelType.objects.all().order_by('-id'):
             wallet = [0]
 
             for i in range(1, level_type.levels):
@@ -30,12 +30,13 @@ class solar_level_view(View):
             shares_total = sum(wallet)
             for i in range(len(wallet)):
                 total += level_type.people_in_a_level ** i
-                wallet[i] = slice_price(wallet[i] // (level_type.people_in_a_level ** i))
+                wallet[i] = str(level_type.people_in_a_level ** i) + ' - ' + slice_price(wallet[i] // (level_type.people_in_a_level ** i)) + ' - ' + slice_price(wallet[i])
 
 
             total = total * tamhidat_card_price
             context['level_types'].append({
                 'first_level_share': level_type.first_level_share,
+                'tamhidat_card_price': level_type.tamhidat_card_price,
                 'other_levels_share': level_type.other_levels_share,
                 'people_in_a_level': level_type.people_in_a_level,
                 'levels': level_type.levels,
@@ -58,6 +59,7 @@ class solar_level_view(View):
                     other_levels_share = int(request.POST['other_levels_share']),
                     people_in_a_level = int(request.POST['people_in_a_level']),
                     levels = int(request.POST['levels']),
+                    tamhidat_card_price = int(request.POST['tamhidat_card_price']),
             )
         except:
             pass
